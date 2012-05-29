@@ -45,8 +45,8 @@ sub add_socket {
 sub del_socket {
     my ($id) = @_;
     return if !defined($Auto::SOCKET{$id});
+    ##possibly remove here
     $Auto::SOCKET{$id}{stream}->close_when_empty;
-    $Auto::loop->remove($Auto::SOCKET{$id}{stream});
     delete $Auto::SOCKET{$id};
     alog("del_socket(): Socket $id deleted.");
     return 1;

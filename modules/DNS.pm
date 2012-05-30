@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use API::Std qw(cmd_add cmd_del trans);
 use API::IRC qw(privmsg notice);
-use Net::DNS;
+use IO::Async::Resolver::DNS;
 
 # Initialization subroutine.
 sub _init {
@@ -39,53 +39,53 @@ sub cmd_dns {
         notice($src->{svr}, $src->{nick}, trans('Not enough parameters').q{.});
         return;
     }
-    my $res = Net::DNS::Resolver->new;
-    my $query = $res->search($argv[0]);
-    my @results;
-
-    if ($query) {
-        foreach my $rr ($query->answer) {
-            next if $rr->type ne 'A';
-            push(@results, $rr->address);
+    $src->{target} = (exists $src->{chan} ? $src->{chan} : $src->{nick});
+    $Auto::loop->resolver->res_search(
+        dname       => $argv[0],
+        type        => 'A',
+        on_resolved => sub {
+            my $pkt = shift;
+            my @results;
+            foreach my $a ($pkt->answer) {
+                next unless $a->type eq 'A';
+                push(@results, $a->address);
+            }
+            if (@results) {
+                my $result = join ' ', @results;
+                my $count = scalar @results;
+                privmsg($src->{svr}, $src->{target}, "\2$argv[0] ($count)\2: $result");
+            }
+            else {
+                privmsg($src->{svr}, $src->{target}, "No results found for \2$argv[0]\2.");
+                return;
+            }
+            return 1;
+        },
+        on_error => sub {
+            privmsg($src->{svr}, $src->{target}, "DNS Resolution failed: $_[-1]");
+            return;
         }
-    }
-    else {
-        privmsg($src->{svr}, $src->{chan}, 'Unable to do query.');
-        return;
-    }
-
-    if (@results) {
-        privmsg($src->{svr}, $src->{chan}, "Results for \2$argv[0]\2:");
-        my $result = join ' ', @results;
-        privmsg($src->{svr}, $src->{chan}, "Results (".scalar(@results)."): ".$result);
-    }
-    else {
-        privmsg($src->{svr}, $src->{chan}, "No results found for \2$argv[0]\2.");
-        return;
-    }
-
-    return 1;
+    );
 }
 
 # Start initialization.
-API::Std::mod_init('DNS', 'Xelhua', '1.01', '3.0.0a11');
-# build: cpan=Net::DNS perl=5.010000
+API::Std::mod_init('DNS', 'Arinity', '1.02', '3.0.0a11');
+# build: cpan=IO::Async::Resolver::DNS perl=5.010000
 
 __END__
 
 =head1 NAME
 
-DNS - Net::DNS interface.
+DNS - A simple DNS resolver.
 
 =head1 VERSION
 
- 1.00
+ 1.02
 
 =head1 SYNOPSIS
 
  <matthew> !dns ethrik.net
- <blue> Results for ethrik.net:
- <blue> Results (1): 217.114.62.164
+ <blue> ethrik.net (1): 217.114.62.164
 
 =head1 DESCRIPTION
 
@@ -98,7 +98,7 @@ This module depends on the following CPAN modules:
 
 =over
 
-=item L<Net::DNS>
+=item L<Net::Async::Resolver::DNS>
 
 This is the DNS agent this module uses.
 
@@ -108,11 +108,11 @@ This is the DNS agent this module uses.
 
 This module was written by Matthew Barksdale.
 
-This module is maintained by Ethrik Development Group.
+This module is maintained by Arinity Development Group.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Ethrik Development Group.
+This module is Copyright 2010-2012 Arinity Development Group.
 
 Released under the same licensing terms as Auto itself.
 

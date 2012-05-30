@@ -39,6 +39,7 @@ Auto IRC Bot 3.0: Change Log
     * Sockets: We now use IO::Async which provides us with various loop methods. This adds the 'loop' option to the configration.
     * Auto::HTTP: Exposed Net::Async::HTTP to Auto. This allows for modules to make non-blocking http requests.
     * DNS 1.02: Use IO::Async::Resolver::DNS, this makes DNS non-blocking.
+    * Add target to source hashref. If PM target will be nick, otherwise channel.
 
 3.0 Alpha 11
 ===============================================================================

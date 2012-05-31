@@ -8,7 +8,6 @@ use feature qw(switch);
 use API::Std qw(conf_get err trans cmd_add cmd_del hook_add hook_del timer_add timer_del);
 use API::IRC qw(notice privmsg cpart cjoin);
 use API::Log qw(slog dbug alog);
-use POSIX;
 use XML::Simple;
 our $ENABLE_RUN = 0;
 our $RUN_DELAY = 30;

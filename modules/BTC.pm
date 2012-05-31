@@ -1,12 +1,11 @@
 # Module: BTC. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2012 Arinity Development Group, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::BTC;
 use strict;
 use warnings;
 use API::Std qw(cmd_add cmd_del trans);
 use API::IRC qw(privmsg notice);
-use Furl;
 use JSON -support_by_pp;
 
 # Initialization subroutine.
@@ -34,36 +33,38 @@ our %FHELP_BTC = (
 
 # Callback for BTC command.
 sub cmd_btc {
-    my ($src, @argv) = @_;
-
-    # Create an instance of Furl.
-    my $ua = Furl->new(
-        agent => 'Auto IRC Bot',
-        timeout => 5,
-    );
+    my ($src, undef) = @_;
 
     # Create an instance of JSON.
     my $json = JSON->new();    
     
-    # Get the response via HTTP.
-    my $response = $ua->get('https://btcex.com/ticker.json');
-
-    if ($response->is_success) {
-        # If successful, get the content.
-        my $data = $json->allow_nonref->relaxed->escape_slash->loose->allow_singlequote->allow_barekey->decode($response->content);
-        privmsg($src->{svr}, $src->{chan}, "The current BTC to USD conversion rate is \2\$$data->[0]->{bid}/BTC\2.");
-    }
-    else {
-        # Otherwise, send an error message.
-        privmsg($src->{svr}, $src->{chan}, 'An error occurred while sending your request to BTCex.');
-    }
+    # HTTP request.
+    $Auto::http->request(
+        url => 'https://btcex.com/ticker.json',
+        on_response => sub {
+            my $response = shift;
+            if ($response->is_success) {
+                # If successful, get the content.
+                my $data = $json->allow_nonref->relaxed->escape_slash->loose->allow_singlequote->allow_barekey->decode($response->decoded_content);
+                privmsg($src->{svr}, $src->{target}, "The current BTC to USD conversion rate is \2\$$data->[0]->{bid}/BTC\2.");
+            }
+            else {
+                # Otherwise, send an error message.
+                privmsg($src->{svr}, $src->{target}, 'An error occurred while sending your request to BTCex.');
+            }
+        },
+        on_error => sub {
+            my $error = shift;
+            privmsg($src->{svr}, $src->{target}, "An error occurred while sending your request to BTCex: $error");
+        }
+    );
 
     return 1;
 }
 
 # Start initialization.
-API::Std::mod_init('BTC', 'Xelhua', '1.00', '3.0.0a11');
-# build: cpan=Furl,JSON,JSON::PP perl=5.010000
+API::Std::mod_init('BTC', 'Arinity', '1.01', '3.0.0a11');
+# build: cpan=JSON,JSON::PP perl=5.010000
 
 __END__
 
@@ -73,7 +74,7 @@ BTC - Interface to BTCex
 
 =head1 VERSION
 
- 1.00
+ 1.01
 
 =head1 SYNOPSIS
 
@@ -91,10 +92,6 @@ This module depends on the following CPAN modules:
 
 =over
 
-=item L<Furl>
-
-This is the HTTP agent this module uses.
-
 =item L<JSON>
 
 This is used to parse the data returned by the BTCex API.
@@ -105,11 +102,11 @@ This is used to parse the data returned by the BTCex API.
 
 This module was written by Matthew Barksdale.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by Arinity Development Group.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Xelhua Development Group.
+This module is Copyright 2010-2012 Arinity Development Group.
 
 Released under the same licensing terms as Auto itself.
 

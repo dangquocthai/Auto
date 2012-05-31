@@ -26,10 +26,13 @@ sub request {
         return 0;
     }
 
+    $args{ua} ||= 'Auto IRC Bot';
+    $self->http->{user_agent} = delete $args{ua};
+
     my $uri = URI->new($args{url});
     dbug('Auto::HTTP request was unable to create a URI object with the provided URL. Please verify it is properly formed.') and return 0 if !$uri->can('host');
 
-    $self->http->do_request(
+     $self->http->do_request(
         uri => $uri,
         %args
     );

@@ -2,9 +2,9 @@
 # Copyright (C) 2012 [NAS]peter, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::ShoutCast;
-use Furl ();
-use strict ();
-use warnings ();
+use Furl;
+use strict;
+use warnings;
 use API::Std qw(cmd_add cmd_del conf_get trans hook_add hook_del timer_add timer_del);
 use API::IRC qw(privmsg notice cjoin);
 use API::Log qw(dbug);

@@ -1,12 +1,11 @@
 # Module: IsItUp. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2012 Arinity Development Group, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::IsItUp;
 use strict;
 use warnings;
 use API::Std qw(cmd_add cmd_del trans);
 use API::IRC qw(privmsg notice);
-use Furl;
 
 # Initialization subroutine.
 sub _init {
@@ -36,12 +35,6 @@ our %HELP_ISITUP = (
 sub cmd_isitup {
     my ($src, @argv) = @_;
 
-    # Create an instance of Furl.
-    my $ua = Furl->new(
-        agent => 'Auto IRC Bot',
-        timeout => 5,
-    );
-
     # Do we have enough parameters?
     if (!defined $argv[0]) {
         notice($src->{svr}, $src->{nick}, trans('Not enough parameters').q{.});
@@ -54,23 +47,31 @@ sub cmd_isitup {
     }
 
     # Get the response via HTTP.
-    my $response = $ua->get($curl);
-
-    if ($response->is_success) {
-        # If successful, it's up.
-        privmsg($src->{svr}, $src->{chan}, "$curl appears to be up from here.");
-    }
-    else {
-        # Otherwise, it's down.
-        privmsg($src->{svr}, $src->{chan}, "$curl appears to be down from here.");
-    }
+    $Auto::http->request(
+        url => $curl,
+        on_response => sub {
+            my $response = shift;
+            if ($response->is_success) {
+                # If successful, it's up.
+                privmsg($src->{svr}, $src->{target}, "$curl appears to be up from here.");
+            }
+            else {
+                # Otherwise, it's down.
+                privmsg($src->{svr}, $src->{target}, "$curl appears to be down from here.");
+            }
+        },
+        on_error = sub {
+            my $error = shift;
+            privmsg($src->{svr}, $src->{target}, "Request error: $error");
+        }
+    );
 
     return 1;
 }
 
 # Start initialization.
-API::Std::mod_init('IsItUp', 'Xelhua', '1.01', '3.0.0a11');
-# build: cpan=Furl perl=5.010000
+API::Std::mod_init('IsItUp', 'Arinity', '1.02', '3.0.0a11');
+# build: perl=5.010000
 
 __END__
 
@@ -80,7 +81,7 @@ IsItUp - Check if a website is online
 
 =head1 VERSION
 
- 1.01
+ 1.02
 
 =head1 SYNOPSIS
 
@@ -92,27 +93,15 @@ IsItUp - Check if a website is online
 This module creates the ISITUP command for checking if website appears to be
 online or offline to Auto (or rather, the system he's running on).
 
-=head1 DEPENDENCIES
-
-This module depends on the following CPAN modules:
-
-=over
-
-=item L<Furl>
-
-This is the HTTP agent this module uses.
-
-=back
-
 =head1 AUTHOR
 
 This module was written by Elijah Perrault.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by Arinity Development Group.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Xelhua Development Group.
+This module is Copyright 2010-2012 Arinity Development Group.
 
 Released under the same licensing terms as Auto itself.
 

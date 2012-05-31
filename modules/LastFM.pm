@@ -27,23 +27,18 @@ sub _init {
     hook_add('on_connect', 'lastfm.connect', \&M::LastFM::on_connect) or return;
 
 
-    if (conf_get('lastfm:feed_auto')) {
-        $ENABLE_RUN = (conf_get('lastfm:feed_auto'))[0][0];
-    }
-
     if (!conf_get('lastfm:feed_auto')) {
         err(2, "LastFM: Please verify that you have defined the auto feed value.", 0);
         return;
     } 
 
-    if (conf_get('lastfm:feed_delay')) {
-        $RUN_DELAY = (conf_get('lastfm:feed_delay'))[0][0];
-    }
-
     if (!conf_get('lastfm:feed_delay')) {
         err(2, "LastFM: Please verify that you have defined the feed delay value.", 0);
-         return;
+        return;
     }
+
+    $ENABLE_RUN = (conf_get('lastfm:feed_auto'))[0][0];
+    $RUN_DELAY = (conf_get('lastfm:feed_delay'))[0][0];
 
     cmd_add('NP', 0, 0, \%M::LastFM::HELP_NP, \&M::LastFM::cmd_np) or return;
     cmd_add('LASTFM', 0, 'lastfm.admin', \%M::LastFM::HELP_LASTFM, \&M::LastFM::cmd_lastfm) or return;

@@ -1,5 +1,5 @@
 # Module: Twitter. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2012 Arinity Development Group, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::Twitter;
 use strict;
@@ -27,17 +27,9 @@ sub _init {
     # Create our required hooks.
     hook_add('on_connect', 'twit.connect', \&M::Twitter::on_connect) or return;
 
-    if (conf_get('twitter:feed_auto')) {
-        $ENABLE_RUN = (conf_get('twitter:feed_auto'))[0][0];
-    }
-
     if (!conf_get('twitter:feed_auto')) {
         err(2, "Twitter: Please verify that you have defined the auto feed value.", 0);
         return;
-    } 
-
-    if (conf_get('twitter:feed_delay')) {
-        $RUN_DELAY = (conf_get('twitter:feed_delay'))[0][0];
     }
 
     if (!conf_get('twitter:feed_delay')) {
@@ -45,6 +37,8 @@ sub _init {
         return;
     }
 
+    $ENABLE_RUN = (conf_get('twitter:feed_auto'))[0][0];
+    $RUN_DELAY = (conf_get('twitter:feed_delay'))[0][0];
 
     cmd_add('TWITTER', 0, 0, \%M::Twitter::HELP_TWITTER, \&M::Twitter::cmd_twitter) or return;
 
@@ -369,7 +363,7 @@ sub fix_net {
 }
 
 # Start initialization.
-API::Std::mod_init('Twitter', 'Xelhua', '1.00', '3.0.0a11');
+API::Std::mod_init('Twitter', 'Arinity', '1.00', '3.0.0a11');
 # build: cpan=Furl,LWP::Simple,XML::RSS::Parser::Lite,HTML::Entities,TryCatch perl=5.010000
 
 __END__
@@ -433,11 +427,11 @@ to have several feeds polling at a 10 minute interval, it may not work after a w
 
 This module was written by Russell Bradford.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by Arinity Development Group.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Xelhua Development Group. All rights
+This module is Copyright 2010-2012 Arinity Development Group. All rights
 reserved.
 
 This module is released under the same licensing terms as Auto itself.

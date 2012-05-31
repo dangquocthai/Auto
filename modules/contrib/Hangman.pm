@@ -265,7 +265,7 @@ sub on_rehash {
 
 # Start initialization.
 API::Std::mod_init('Hangman', '[NAS]peter', '1.00', '3.0.0a11');
-# build: perl=5.010000 cpan=Furl
+# build: perl=5.010000
 
 __END__
 
@@ -370,16 +370,6 @@ You can add words for hangman to use yourself. Use the following directive:
 Where <word1> and <word2> are the words you want the module to use.
 
  hangman "auto rocks your automobile";
- 
-=head1 DEPENDENCIES
-
-This module depends on the following CPAN modules:
-
-=over
-
-=item L<NONE>
-
-=back
 
 =head1 AUTHOR
 

@@ -1,5 +1,5 @@
 # Module: LastFM. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2012 Arinity Development Group, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::LastFM;
 use strict;
@@ -9,7 +9,6 @@ use API::Std qw(conf_get err trans cmd_add cmd_del hook_add hook_del timer_add t
 use API::IRC qw(notice privmsg cpart cjoin);
 use API::Log qw(slog dbug alog);
 use POSIX;
-use LWP::UserAgent;
 use XML::Simple;
 our $ENABLE_RUN = 0;
 our $RUN_DELAY = 30;
@@ -43,7 +42,7 @@ sub _init {
 
     if (!conf_get('lastfm:feed_delay')) {
         err(2, "LastFM: Please verify that you have defined the feed delay value.", 0);
-        return;
+         return;
     }
 
     cmd_add('NP', 0, 0, \%M::LastFM::HELP_NP, \&M::LastFM::cmd_np) or return;
@@ -54,9 +53,6 @@ sub _init {
         my $delay = $RUN_DELAY*60;
         timer_add("lastfeed", 2, $delay, \&M::LastFM::process_feed);
     }
-    # Success.
-
-    # Success.
     return 1;
 }
 
@@ -134,66 +130,72 @@ sub cmd_np {
 
     #given(uc $argv[0]) {
 
-        my $xml = new XML::Simple;
+    my $xml = new XML::Simple;
 
-        if(check_alias(lc($src->{svr}), $uname))
-        {
-            $uname = check_alias(lc($src->{svr}), $uname);
-        }
+    if(check_alias(lc($src->{svr}), $uname))
+    {
+        $uname = check_alias(lc($src->{svr}), $uname);
+    }
 
-        my $xml_url = "http://ws.audioscrobbler.com/2.0/user/".$uname."/recenttracks.xml";
-        my $agent = Furl->new(agent => 'Auto IRC Bot', timeout => 5);
+    my $xml_url = "http://ws.audioscrobbler.com/2.0/user/".$uname."/recenttracks.xml";
 
-        my $request = HTTP::Request->new(GET => $xml_url);
-        my $result = $agent->request($request);
+    $Auto::http->request(
+        url => $xml_url,
+        on_response => sub {
+            my $result = shift;
 
-        if(!$result->is_success)
-        {
-            if(lc($result->content) =~ m/private/)
-	    {
-                privmsg($src->{svr}, $src->{chan}, "The LastFM user '$uname' has made their recent tracks private. You will need to login to LastFM and have access to view this users tracks.");
-            }
-            if(lc($result->content) =~ m/no user/)
-	    {
-                privmsg($src->{svr}, $src->{chan}, "There is no LastFM user with the username '$uname'.");
-	    }
-            return 1;
-        }
-
-        my $data = $xml->XMLin($result->content);
-
-	    if($data->{'total'} eq "0")
-	    {
-            privmsg($src->{svr}, $src->{chan}, "$uname has never played anything.");
-            return 1;
-	    }
-
-        my ($date, $track, $artist);
-
-
-        foreach my $key ( keys %{$data->{'track'}} )
-        {
-		    if($data->{'track'}->{$key}->{'nowplaying'} eq "true")
-		    {
-                privmsg($src->{svr}, $src->{chan}, "$uname is now playing: $key - ".$data->{'track'}->{$key}->{'artist'}->{'content'});
+            if(!$result->is_success)
+            {
+                if(lc($result->decoded_content) =~ m/private/)
+                {
+                    privmsg($src->{svr}, $src->{target}, "The LastFM user '$uname' has made their recent tracks private. You will need to login to LastFM and have access to view this users tracks.");
+                }
+                if(lc($result->decoded_content) =~ m/no user/)
+                {
+                    privmsg($src->{svr}, $src->{target}, "There is no LastFM user with the username '$uname'.");
+                }
                 return 1;
-		    }
-            
-		    elsif($date < $data->{'track'}->{$key}->{'date'}->{'uts'})
-		    {
-				$track = $key;
-				$artist = $data->{'track'}->{$key}->{'artist'}->{'content'};
-				$date = $data->{'track'}->{$key}->{'date'}->{'uts'};
-		    }
-		}
+            }
 
-        my $played_time = scalar localtime ($date);
-        privmsg($src->{svr}, $src->{chan}, "$uname is not playing anything at the moment but last played: '$track - $artist' on $played_time");
-        return 1;
+            my $data = $xml->XMLin($result->decoded_content);
 
+            if($data->{'total'} eq "0")
+            {
+                privmsg($src->{svr}, $src->{target}, "$uname has never played anything.");
+                return 1;
+            }
+
+            my ($date, $track, $artist);
+
+
+            foreach my $key ( keys %{$data->{'track'}} )
+            {
+                if($data->{'track'}->{$key}->{'nowplaying'} eq "true")
+                {
+                    privmsg($src->{svr}, $src->{target}, "$uname is now playing: $key - ".$data->{'track'}->{$key}->{'artist'}->{'content'});
+                    return 1;
+                }
+
+                elsif($date < $data->{'track'}->{$key}->{'date'}->{'uts'})
+                {
+                    $track = $key;
+                    $artist = $data->{'track'}->{$key}->{'artist'}->{'content'};
+                    $date = $data->{'track'}->{$key}->{'date'}->{'uts'};
+                }
+            }
+
+            my $played_time = scalar localtime ($date);
+            privmsg($src->{svr}, $src->{target}, "$uname is not playing anything at the moment but last played: '$track - $artist' on $played_time");
+            return 1;
+        },
+        on_error => sub {
+            my $error = shift;
+            privmsg($src->{svr}, $src->{target}, "An error occurred: $error");
+        }
+    );
     #}
 
-   return 1;
+    return 1;
 }
 
 # Callback for the LastFM command.
@@ -275,14 +277,14 @@ sub cmd_lastfm {
         }
         when ('ALIAS') {
             my $user;
-			my $nick;
+            my $nick;
             my $svr = lc($src->{svr});
             if (!defined $argv[2]) {
                 notice($src->{svr}, $src->{nick}, trans('Not enough parameters').q{.});
                 return;
             }
-			
-			if ($argv[1] =~ m/(.*)\@(.*)/) {
+
+            if ($argv[1] =~ m/(.*)\@(.*)/) {
                 $nick = $1;
                 $svr = lc($2);
             }
@@ -308,13 +310,13 @@ sub cmd_lastfm {
 
         }
         when ('UNALIAS') {
-			my $nick;
+            my $nick;
             my $svr = lc($src->{svr});
             if (!defined $argv[1]) {
                 notice($src->{svr}, $src->{nick}, trans('Not enough parameters').q{.});
                 return;
             }
-			
+
             if ($argv[1] =~ m/(.*)\@(.*)/) {
                 $nick = $1;
                 $svr = lc($2);
@@ -327,12 +329,12 @@ sub cmd_lastfm {
                 privmsg($src->{svr}, $src->{chan}, "I'm not configured for $svr.");
                 return;
             }
-            notice($src->{svr}, $src->{nick}, "$user is not aliased on $svr") and return if !check_alias($svr, $nick);
+            notice($src->{svr}, $src->{nick}, "$nick is not aliased on $svr") and return if !check_alias($svr, $nick);
             my $dbq = $Auto::DB->prepare('DELETE FROM lastfmalias WHERE net = ? AND alias = ?');
             if ($dbq->execute($svr, $nick)) {
                 $svr = fix_net($svr);
-                privmsg($src->{svr}, $src->{chan}, "The alias $user has been deleted from $svr.");
-                slog("[\2LastFM\2] The alias $user has been deleted from $svr.");
+                privmsg($src->{svr}, $src->{chan}, "The alias $nick has been deleted from $svr.");
+                slog("[\2LastFM\2] The alias $nick has been deleted from $svr.");
             }
             else {
                 privmsg($src->{svr}, $src->{chan}, 'Failed to delete Alias');
@@ -379,7 +381,7 @@ sub cmd_lastfm {
         }
     }
 
-   return 1;
+    return 1;
 }
 
 sub on_connect {
@@ -409,70 +411,73 @@ sub process_feed {
 
             my $uname = $second->[2];
             my $xml_url = "http://ws.audioscrobbler.com/2.0/user/".$uname."/recenttracks.xml";
-			my $agent = Furl->new(agent => 'Auto IRC Bot', timeout => 5);
 
-            my $request = HTTP::Request->new(GET => $xml_url);
-            my $result = $agent->request($request);
+            $Auto::http->request(
+                url => $xml_url,
+                on_response => sub {
+                    my $result = shift;
 
-            if(!$result->is_success)
-            {
-                if(lc($result->content) =~ m/private/)
-	            {
-                    privmsg(fix_net($second->[0]), $second->[1], "[LastFM] The LastFM user '$uname' has made their recent tracks private. You will need to login to LastFM and have access to view this users tracks.");
-                }
-                if(lc($result->content) =~ m/no user/)
-	            {
-                    privmsg(fix_net($second->[0]), $second->[1], "[LastFM] There is no LastFM user with the username '$uname'.");
-	            }
-                my $dbq = $Auto::DB->prepare('UPDATE lastfmchans SET lastsong=? WHERE net = ? AND chan = ?');
-                $dbq->execute("NONE", lc $second->[0], $second->[1]);
-            }
+                    if(!$result->is_success)
+                    {
+                        if(lc($result->decoded_content) =~ m/private/)
+                        {
+                            privmsg(fix_net($second->[0]), $second->[1], "[LastFM] The LastFM user '$uname' has made their recent tracks private. You will need to login to LastFM and have access to view this users tracks.");
+                        }
+                        if(lc($result->decoded_content) =~ m/no user/)
+                        {
+                            privmsg(fix_net($second->[0]), $second->[1], "[LastFM] There is no LastFM user with the username '$uname'.");
+                        }
+                        my $dbq = $Auto::DB->prepare('UPDATE lastfmchans SET lastsong=? WHERE net = ? AND chan = ?');
+                        $dbq->execute("NONE", lc $second->[0], $second->[1]);
+                    }
 
-            my $data = $xml->XMLin($result->content);
+                    my $data = $xml->XMLin($result->decoded_content);
 
-	        if($data->{'total'} eq "0")
-	        {
-                privmsg(fix_net($second->[0]), $second->[1], "[LastFM] $uname has never played anything.");
-                my $dbq = $Auto::DB->prepare('UPDATE lastfmchans SET lastsong=? WHERE net = ? AND chan = ?');
-                $dbq->execute("NONE", lc $second->[0], $second->[1]);
-	        }
+                    if($data->{'total'} eq "0")
+                    {
+                        privmsg(fix_net($second->[0]), $second->[1], "[LastFM] $uname has never played anything.");
+                        my $dbq = $Auto::DB->prepare('UPDATE lastfmchans SET lastsong=? WHERE net = ? AND chan = ?');
+                        $dbq->execute("NONE", lc $second->[0], $second->[1]);
+                    }
 
-            my ($date, $track, $artist);
+                    my ($date, $track, $artist);
 
 
-            foreach my $key ( keys %{$data->{'track'}} )
-            {
-		        if($data->{'track'}->{$key}->{'nowplaying'} eq "true")
-		        {
-				my $oldtrack = "$key - ".$data->{'track'}->{$key}->{'artist'}->{'content'}."";
-			        if($oldtrack ne $second->[3])
-                    {         
-                    		my $dbq = $Auto::DB->prepare('UPDATE lastfmchans SET lastsong=? WHERE net = ? AND chan = ?');
-                    		$dbq->execute($key." - ".$data->{'track'}->{$key}->{'artist'}->{'content'}, lc $second->[0], $second->[1]);
-                    		privmsg(fix_net($second->[0]), $second->[1], "[LastFM] $uname is now playing: $key - ".$data->{'track'}->{$key}->{'artist'}->{'content'});
-					}
-				}
-		    }
+                    foreach my $key ( keys %{$data->{'track'}} )
+                    {
+                        if($data->{'track'}->{$key}->{'nowplaying'} eq "true")
+                        {
+                            my $oldtrack = "$key - ".$data->{'track'}->{$key}->{'artist'}->{'content'}."";
+                            if($oldtrack ne $second->[3])
+                            {         
+                                my $dbq = $Auto::DB->prepare('UPDATE lastfmchans SET lastsong=? WHERE net = ? AND chan = ?');
+                                $dbq->execute($key." - ".$data->{'track'}->{$key}->{'artist'}->{'content'}, lc $second->[0], $second->[1]);
+                                privmsg(fix_net($second->[0]), $second->[1], "[LastFM] $uname is now playing: $key - ".$data->{'track'}->{$key}->{'artist'}->{'content'});
+                            }
+                        }
+                    }
+                },
+                on_error => sub { return; }
+            );
         }
     }
 }
-
 
 
 sub fix_net {
     my ($net) = @_;
     my %servers = conf_get('server');
     foreach my $name (keys %servers) {
-         if (lc($name) eq lc($net)) {
-              return $name;
-         }
+        if (lc($name) eq lc($net)) {
+            return $name;
+        }
     }
     return 0;
 }
 
 # Start initialization.
-API::Std::mod_init('LastFM', 'Russell', '1.00', '3.0.0a11');
-# build: perl=5.010000 cpan=LWP::UserAgent, XML::Simple
+API::Std::mod_init('LastFM', 'Russell', '1.01', '3.0.0a11');
+# build: perl=5.010000 cpan=XML::Simple
 
 __END__
 
@@ -482,7 +487,7 @@ LastFM
 
 =head1 VERSION
 
- 1.00
+ 1.01
 
 =head1 SYNOPSIS
 
@@ -533,11 +538,11 @@ is retrieved from. There may however be a limit so be warned that it may stop wo
 
 This module was written by Russell Bradford.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by Arinity Development Group.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Xelhua Development Group. All rights
+This module is Copyright 2010-2012 Arinity Development Group. All rights
 reserved.
 
 This module is released under the same licensing terms as Auto itself.

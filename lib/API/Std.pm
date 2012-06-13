@@ -304,6 +304,7 @@ sub timer_del {
     if (defined $Auto::TIMERS{$name})
     {
         $Auto::TIMERS{$name}->stop;
+        $Auto::loop->remove($Auto::TIMERS{$name});
         delete $Auto::TIMERS{$name};
         return 1;
     }

@@ -26,6 +26,7 @@ sub new {
             $self->{function}->();
             if ($self->{type} == 1) {
                 $self->stop;
+                $Auto::loop->remove($self);
                 delete $Auto::TIMERS{$self->{name}};
                 $class->dbug("Timer ".$self->{name}." deleted because it's a non-repeating timer.");
             }

@@ -24,7 +24,7 @@ sub new {
         on_tick  => sub {
             my $self = shift;
             $self->{function}->();
-            if (!$self->{repeat}) {
+            if ($self->{type} == 1) {
                 $self->stop;
                 delete $Auto::TIMERS{$opts{name}};
             }
@@ -33,7 +33,7 @@ sub new {
 
     $class->dbug("Timer $opts{name} created.");
 
-    $timer->{$_} = $opts{$_} foreach qw(name function repeat);
+    $timer->{$_} = delete $opts{$_} foreach qw(name function type);
     return $timer;
 }
 

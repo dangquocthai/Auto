@@ -24,9 +24,11 @@ sub new {
         on_tick  => sub {
             my $self = shift;
             $self->{function}->();
+            $class->dbug("Timer $opts{name} ticked.");
             if ($self->{type} == 1) {
                 $self->stop;
                 delete $Auto::TIMERS{$opts{name}};
+                $class->dbug("Timer $opts{name} deleted because it's a non-repeating timer");
             }
         }
     ) or $class->dbug("Timer $opts{name} creation failed.") and return;

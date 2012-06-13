@@ -286,7 +286,7 @@ sub timer_add {
             name     => $name,
             function => $sub,
             delay    => $time,
-            repeat   => ($type eq 1 ? 0 : 1)
+            type     => $type
         );
         $Auto::TIMERS{$name} = $timer;
         $timer->go;

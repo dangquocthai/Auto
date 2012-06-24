@@ -26,7 +26,7 @@ contributed modules. There is a chance that it will be accepted.
 
 ## 2. DEVELOPERS
 
-Auto IRC Bot is developed by Ethrik Development Group, a team
+Auto IRC Bot is developed by Arinity Development Group, a team
 of people who contribute their time and knowledge to the
 maintenance of Auto, and other projects.
 
@@ -57,8 +57,8 @@ Reserved. Currently there is no method of upgrading version.
 
 ## 5. HELP, BUGS, SUGGESTIONS
 
-For help with Auto, you can ask on the [forums](http://forums.xelhua.org) or in our IRC chatroom at irc.ethrik.net
-&#35;ethrik.
+For help with Auto, you can ask on the [forums](http://forums.xelhua.org) or in our IRC chatroom at irc.arinity.org
+&#35;auto.
 
 To report a bug, please visit our IRC channel.
 Thanks for contributing by reporting issues!

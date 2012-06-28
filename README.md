@@ -47,7 +47,10 @@ greatly.
 + Elijah "starcoder" Perrault &lt;elijah@starcoder.info&gt;
 
 ## 3. REQUIREMENTS
-Auto requires a few CPAN modules in order to correctly function, they are:
+Auto being a Perl IRC Bot obviously requires perl (5.10+) be installed. If you use *nix most package managers have this as 'perl'.
+If you're using OS X, this is already installed on your system. Lastly, if you're using Windows we suggest [Strawberry Perl](http://strawberryperl.com/).
+
+Auto also requires a few CPAN modules in order to correctly function, they are:
 
 + IO::Async
 + Net::Async::HTTP

@@ -5,9 +5,10 @@ Auto IRC Bot 3.0
 ## Table of Contents
 1.   Description
 2.   Developers
-3.   How to install
-4.   How to upgrade
-5.   Help, Bugs, Suggestions
+3.   Requirements
+4.   How to install
+5.   How to upgrade
+6.   Help, Bugs, Suggestions
 
 ------------------------------------------------------------
 ## 1. DESCRIPTION
@@ -45,17 +46,34 @@ greatly.
 
 + Elijah "starcoder" Perrault &lt;elijah@starcoder.info&gt;
 
-## 3. HOW TO INSTALL
+## 3. REQUIREMENTS
+Auto requires a few CPAN modules in order to correctly function, they are:
 
++ IO::Async
++ Net::Async::HTTP
++ IO::Socket::IP
++ Class::Unload
++ IO::Async::Timer::Periodic
++ IO::Async::Stream
++ DBI
+
+The following are required if built in a certain way:
++ IO::Socket::SSL (needed unless built with --disable-ssl)
++ MIME::Base64 (--enable-sasl)
++ DBD::mysql (--with-mysql)
++ DBD::Pg (--with-pgsql)
++ DBD::SQLite (needed unless built with --with-mysql or --with-pgsql)
+
+## 4. HOW TO INSTALL
 Installation documentation can be found [here](http://wiki.xelhua.org/index.php/Auto:Installation_guide). (yes, down)
 
 
-## 4. HOW TO UPGRADE
+## 5. HOW TO UPGRADE
 
 Reserved. Currently there is no method of upgrading version.
 
 
-## 5. HELP, BUGS, SUGGESTIONS
+## 6. HELP, BUGS, SUGGESTIONS
 
 For help with Auto, you can ask on the [forums](http://forums.xelhua.org) or in our IRC chatroom at irc.arinity.org
 &#35;auto.

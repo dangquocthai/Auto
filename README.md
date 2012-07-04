@@ -14,7 +14,7 @@ Auto IRC Bot 3.0
 ## 1. DESCRIPTION
 
 Auto IRC Bot is an IRC channel bot that was created in
-December of 2009, over time, it progressed into a bot with an
+December of 2009; over time, it progressed into a bot with an
 advanced and lightweight module API. Many of its features
 are modules and can be loaded/unloaded to your wish.
 

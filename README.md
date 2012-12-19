@@ -7,7 +7,7 @@ Auto IRC Bot 3.0
 2.   Developers
 3.   Requirements
 4.   How to install
-5.   How to upgrade
+5.   Notice of Auto 4
 6.   Help, Bugs, Suggestions
 
 ------------------------------------------------------------
@@ -34,20 +34,15 @@ maintenance of Auto, and other projects.
 + Matthew Barksdale &lt;mattwb65@gmail.com&gt;
 + Russell Bradford &lt;Russell@rbradford.me&gt;
 + Liam Smith &lt;me@liam.co&gt;
-+ Alexandria "alyx" Wolcott &lt;alyx@woomoo.org&gt;
-
++ Alexandria "alyx" Wolcott &lt;contact@alyxw.me&gt;
 
 Contributors - Non-developers who contribute to the project
 greatly.
 
 + None at present.
 
-'Retired' Developers 
-
-+ Elijah "starcoder" Perrault &lt;elijah@starcoder.info&gt;
-
 ## 3. REQUIREMENTS
-Auto being a Perl IRC Bot obviously requires perl (5.10+) be installed. If you use *nix most package managers have this as 'perl'.
+Auto being a Perl IRC Bot obviously requires perl (5.10+) be installed. If you use \*nix most package managers have this as 'perl'.
 If you're using OS X, this is already installed on your system. Lastly, if you're using Windows we suggest [Strawberry Perl](http://strawberryperl.com/).
 
 Auto also requires a few CPAN modules in order to correctly function, they are:
@@ -68,13 +63,11 @@ The following are required if built in a certain way:
 + DBD::SQLite (needed unless built with --with-mysql or --with-pgsql)
 
 ## 4. HOW TO INSTALL
-Installation documentation can be found [here](http://wiki.xelhua.org/index.php/Auto:Installation_guide). (yes, down)
+No documentation is available.
 
-
-## 5. HOW TO UPGRADE
-
-Reserved. Currently there is no method of upgrading version.
-
+## 5. NOTICE OF AUTO 4
+noxgirl is significantly revising Auto as the fourth major revision thereof.
+See [this page](http://j.mp/T1owhK).
 
 ## 6. HELP, BUGS, SUGGESTIONS
 

@@ -1,17 +1,8 @@
-Auto IRC Bot 3.0
-============================================================
-------------------------------------------------------------
+Auto 3
+======
 
-## Table of Contents
-1.   Description
-2.   Developers
-3.   Requirements
-4.   How to install
-5.   Notice of Auto 4
-6.   Help, Bugs, Suggestions
-
-------------------------------------------------------------
-## 1. DESCRIPTION
+Description
+-----------
 
 Auto IRC Bot is an IRC channel bot that was created in
 December of 2009; over time, it progressed into a bot with an
@@ -24,26 +15,31 @@ and should be included in the mainline program, you can
 contact us and request that your module be added to
 contributed modules. There is a chance that it will be accepted.
 
+Please do see **Moving Forward** below.
 
-## 2. DEVELOPERS
+Developers
+----------
 
-Auto IRC Bot is developed by Arinity Development Group, a team
+Auto 3 is developed by the Auto Project, a team
 of people who contribute their time and knowledge to the
 maintenance of Auto, and other projects.
 
-+ Matthew Barksdale &lt;mattwb65@gmail.com&gt;
-+ Russell Bradford &lt;Russell@rbradford.me&gt;
-+ Liam Smith &lt;me@liam.co&gt;
-+ Alexandria "alyx" Wolcott &lt;contact@alyxw.me&gt;
+- [mattwb65](https://github.com/mattwb65) &lt;mattwb65@gmail.com&gt;
+- [noxgirl](https://github.com/noxgirl) &lt;xoeverlux@gmail.com&gt;
 
-Contributors - Non-developers who contribute to the project
-greatly.
+Formerly maintained by Arinity:
 
-+ None at present.
+- [RussellB28](https://github.com/RussellB28) &lt;russell@rbradford.me&gt;
+- [liamsmithuk](https://github.com/liamsmithuk) &lt;me@liam.co&gt;
+- [alyx](https://github.com/alyx) &lt;contact@alyxw.me&gt;
 
-## 3. REQUIREMENTS
-Auto being a Perl IRC Bot obviously requires perl (5.10+) be installed. If you use \*nix most package managers have this as 'perl'.
-If you're using OS X, this is already installed on your system. Lastly, if you're using Windows we suggest [Strawberry Perl](http://strawberryperl.com/).
+Requirements
+------------
+
+Auto being a Perl IRC Bot obviously requires perl (5.10+) be installed. If you
+use \*nix most package managers have this as 'perl'. If you're using OS X, this
+is already installed on your system. Lastly, if you're using Windows we suggest
+[Strawberry Perl](http://strawberryperl.com/).
 
 Auto also requires a few CPAN modules in order to correctly function, they are:
 
@@ -62,21 +58,13 @@ The following are required if built in a certain way:
 + DBD::Pg (--with-pgsql)
 + DBD::SQLite (needed unless built with --with-mysql or --with-pgsql)
 
-## 4. HOW TO INSTALL
-No documentation is available.
+Moving Forward
+--------------
 
-## 5. NOTICE OF AUTO 4
-noxgirl is significantly revising Auto as the fourth major revision thereof.
-See [this page](http://j.mp/T1owhK).
+The Auto Project has initiated a significant revision of Auto, version four.
+Please see the [official page here](http://git.io/autobot).
 
-## 6. HELP, BUGS, SUGGESTIONS
+Help, Bugs, Suggestions
+-----------------------
 
-For help with Auto, you can ask on the [forums](http://forums.xelhua.org) or in our IRC chatroom at irc.arinity.org
-&#35;auto.
-
-To report a bug, please visit our IRC channel.
-Thanks for contributing by reporting issues!
-
-To suggest a feature, it's best to post it on the above link,
-but you can also let us know in our IRC chatroom.
-
+Unavailable at the moment.

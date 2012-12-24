@@ -64,6 +64,9 @@ Moving Forward
 The Auto Project has initiated a significant revision of Auto, version four.
 Please see the [official page here](http://git.io/autobot).
 
+Moreover, note that Autumn (noxgirl, xoeverlux@gmail.com) has assumed
+leadership of the project.
+
 Help, Bugs, Suggestions
 -----------------------
 

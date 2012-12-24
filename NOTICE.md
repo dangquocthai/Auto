@@ -2,11 +2,15 @@ Important Notice
 ================
 
 The mid-2011 dissolution of Xelhua severely decentralized management and
-distribution of Auto 3. To mend this, we advise all users thus:
+distribution of Auto 3. [mattwb65](https://github.com/mattwb65) assumed leadership
+and we commend him for his bona fide continued maintenance of Auto.
 
-[noxgirl](https://github.com/noxgirl), the original designer of Auto, has
-reorganized the Auto Project, which shall henceforth be the maintainer of all
-Auto versions, including the legacy 3.x and the new 4.x line.
+To serve the software and the community better, and to produce a new version 4.x,
+the Auto Project has been regrouped by [noxgirl](https://github.com/noxgirl),
+Auto's original designer.
 
-Therefore, all users of Auto 3 should consider the central upstream to be this
+Henceforth, the legacy 3.x, in addition to the new 4.x, shall be maintained
+by the members of the Auto Project.
+
+Therefore, all users of Auto 3 should consider the central upstream to be the
 [Auto-legacy](https://github.com/Auto/Auto-legacy) repository.

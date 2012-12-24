@@ -15,7 +15,7 @@ and should be included in the mainline program, you can
 contact us and request that your module be added to
 contributed modules. There is a chance that it will be accepted.
 
-Please do see **Moving Forward** below.
+Please do see **Moving Forward** below, and NOTICE.md.
 
 Developers
 ----------

@@ -34,6 +34,7 @@ Inactive
 - [alyx](https://github.com/alyx) &lt;contact@alyxw.me&gt;
 - [dwfreed](https://github.com/dwfreed)
 - [grimreaper](https://github.com/grimreaper)
+- [cooper](https://github.com/cooper)
 
 Requirements
 ------------

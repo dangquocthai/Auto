@@ -1,5 +1,5 @@
 # Module: BotStats. See below for documentation.
-# Copyright (C) 2010-2011 Xelhua Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::BotStats;
 use strict;
@@ -70,7 +70,7 @@ sub stats {
 }
 
 
-API::Std::mod_init('BotStats', 'Xelhua', '1.01', '3.0.0a11');
+API::Std::mod_init('BotStats', 'Auto Project', '1.01', '3.0.0a11');
 # build: perl=5.010000
 
 __END__
@@ -101,11 +101,11 @@ This module is compatible with Auto v3.0.0a10+.
 
 This module was written by Elijah Perrault.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2011 Xelhua Development Group.
+This module is Copyright 2010-2013 The Auto Project.
 
 This module is released under the same licensing terms as Auto itself.
 

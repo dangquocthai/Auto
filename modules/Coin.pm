@@ -1,5 +1,5 @@
 # Module: Coin. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::Coin;
 use strict;
@@ -50,7 +50,7 @@ sub cmd_coin {
 }
 
 # Start initialization.
-API::Std::mod_init('Coin', 'Xelhua', '1.00', '3.0.0a11');
+API::Std::mod_init('Coin', 'Auto Project', '1.00', '3.0.0a11');
 # build: perl=5.010000
 
 __END__
@@ -77,11 +77,11 @@ This merely flips a coin into the air and returns the result.
 
 This module was written by Elijah Perrault.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Xelhua Development Group. All rights
+This module is Copyright 2010-2013 The Auto Project. All rights
 reserved.
 
 This module is released under the same licensing terms as Auto itself.

@@ -1,5 +1,5 @@
 # Module: Calc. See below for documentation.
-# Copyright (C) 2010-2012 Arinity Development Group.
+# Copyright (C) 2010-2013 The Auto Project.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::Calc;
 use strict;
@@ -78,7 +78,7 @@ sub cmd_calc {
 }
 
 # Start initialization.
-API::Std::mod_init('Calc', 'Arinity', '1.02', '3.0.0a11');
+API::Std::mod_init('Calc', 'Auto Project', '1.02', '3.0.0a11');
 # build: cpan=URI::Escape,JSON,JSON::PP perl=5.010000
 
 __END__
@@ -121,11 +121,11 @@ This is used to parse the data returned by the Google Calculator API.
 
 This module was written by Matthew Barksdale.
 
-This module is maintained by Arinity Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Arinity Development Group.
+This module is Copyright 2010-2013 The Auto Project.
 
 Released under the same licensing terms as Auto itself.
 

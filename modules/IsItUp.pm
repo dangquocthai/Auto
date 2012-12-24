@@ -1,5 +1,5 @@
 # Module: IsItUp. See below for documentation.
-# Copyright (C) 2010-2012 Arinity Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::IsItUp;
 use strict;
@@ -70,7 +70,7 @@ sub cmd_isitup {
 }
 
 # Start initialization.
-API::Std::mod_init('IsItUp', 'Arinity', '1.02', '3.0.0a11');
+API::Std::mod_init('IsItUp', 'Auto Project', '1.02', '3.0.0a11');
 # build: perl=5.010000
 
 __END__
@@ -97,11 +97,11 @@ online or offline to Auto (or rather, the system he's running on).
 
 This module was written by Elijah Perrault.
 
-This module is maintained by Arinity Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Arinity Development Group.
+This module is Copyright 2010-2012 The Auto Project.
 
 Released under the same licensing terms as Auto itself.
 

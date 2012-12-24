@@ -1,5 +1,5 @@
 # Module: DNS. See below for documentation.
-# Copyright (C) 2010-2012 Ethrik Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::DNS;
 use strict;
@@ -69,7 +69,7 @@ sub cmd_dns {
 }
 
 # Start initialization.
-API::Std::mod_init('DNS', 'Arinity', '1.02', '3.0.0a11');
+API::Std::mod_init('DNS', 'Auto Project', '1.02', '3.0.0a11');
 # build: cpan=IO::Async::Resolver::DNS perl=5.010000
 
 __END__
@@ -108,11 +108,11 @@ This is the DNS agent this module uses.
 
 This module was written by Matthew Barksdale.
 
-This module is maintained by Arinity Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Arinity Development Group.
+This module is Copyright 2010-2013 The Auto Project.
 
 Released under the same licensing terms as Auto itself.
 

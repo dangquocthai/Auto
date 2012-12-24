@@ -1,5 +1,5 @@
 # Module: FML. See below for documentation.
-# Copyright (C) 2010-2012 Arinity Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::FML;
 use strict;
@@ -109,11 +109,11 @@ This is the HTML parser.
 
 This module was written by Elijah Perrault.
 
-This module is maintained by Arinity Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Arinity Development Group.
+This module is Copyright 2010-2013 The Auto Project.
 
 Released under the same licensing terms as Auto itself.
 

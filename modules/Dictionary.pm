@@ -1,6 +1,8 @@
 # Module: Dictionary. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
+# XXX: Find an Async alternate to Net::Dict
+# XXX: convert to latest POD standards
 package M::Dictionary;
 use strict;
 use warnings;
@@ -73,7 +75,7 @@ sub cmd_dict {
 
 
 # Start initialization.
-API::Std::mod_init('Dictionary', 'Xelhua', '1.00', '3.0.0a11');
+API::Std::mod_init('Dictionary', 'Auto Project', '1.00', '3.0.0a11');
 # build: cpan=Net::Dict perl=5.010000
 
 __END__

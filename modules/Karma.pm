@@ -1,5 +1,5 @@
 # Module: Karma. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::Karma;
 use strict;
@@ -125,7 +125,7 @@ sub _chkmem {
 }
 
 # Start initialization.
-API::Std::mod_init('Karma', 'Xelhua', '1.00', '3.0.0a11');
+API::Std::mod_init('Karma', 'Auto Project', '1.00', '3.0.0a11');
 # build: perl=5.010000
 
 __END__
@@ -179,11 +179,11 @@ If not set, this defaults to 60.
 
 This module was written by Elijah Perrault.
 
-This module is maintained by Xelhua Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Xelhua Development Group.
+This module is Copyright 2010-2013 The Auto Project.
 
 Released under the same licensing terms as Auto itself.
 

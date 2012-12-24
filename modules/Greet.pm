@@ -1,6 +1,7 @@
 # Module: Greet. See below for documentation.
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
+# XXX: convert to latest POD standards
 package M::Greet;
 use strict;
 use warnings;
@@ -123,7 +124,7 @@ sub hook_rcjoin {
 }
 
 # Start initialization.
-API::Std::mod_init('Greet', 'Xelhua', '1.00', '3.0.0a11');
+API::Std::mod_init('Greet', 'Auto Project', '1.00', '3.0.0a11');
 # build: perl=5.010000
 
 __END__

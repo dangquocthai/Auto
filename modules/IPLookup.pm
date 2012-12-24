@@ -1,5 +1,5 @@
 # Module: IP Lookup. See below for documentation. 
-# Copyright (C) 2010-2012 Xelhua Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::IPLookup;
 
@@ -63,7 +63,7 @@ sub cmd_iplookup {
 }
 
 # Start initialization.
-API::Std::mod_init('IPLookup', 'Xelhua', '1.01', '3.0.0a11');
+API::Std::mod_init('IPLookup', 'Auto Project', '1.01', '3.0.0a11');
 # build: cpan=Net::Whois::IANA,Regexp::Common perl=5.010000
 
 
@@ -87,10 +87,10 @@ This module requires Net::Whois::IANA and Regexp::Common. Both are obtainable fr
 
 =head1 AUTHOR
 This module was written by Liam Smith <me@liam.co>.
-This module is maintained by Liam Smith <me@liam.co>.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
-This module is Copyright 2010-2012 Xelhua Development Group, et al.
+This module is Copyright 2010-2013 The Auto Project, et al.
 This module is released under the same licensing terms as Auto itself.
 =cut
 

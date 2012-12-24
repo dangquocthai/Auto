@@ -1,5 +1,5 @@
 # Module: BTC. See below for documentation.
-# Copyright (C) 2010-2012 Arinity Development Group, et al.
+# Copyright (C) 2010-2013 The Auto Project, et al.
 # This program is free software; rights to this code are stated in doc/LICENSE.
 package M::BTC;
 use strict;
@@ -10,6 +10,10 @@ use JSON -support_by_pp;
 
 # Initialization subroutine.
 sub _init {
+
+    # Until we find a new website to do this, refuse to load.
+    return 0;
+
     # Create the BTC command.
     cmd_add('BTC', 0, 0, \%M::BTC::HELP_BTC, \&M::BTC::cmd_btc) or return;
 
@@ -63,7 +67,7 @@ sub cmd_btc {
 }
 
 # Start initialization.
-API::Std::mod_init('BTC', 'Arinity', '1.01', '3.0.0a11');
+API::Std::mod_init('BTC', 'Auto Project', '1.01', '3.0.0a11');
 # build: cpan=JSON,JSON::PP perl=5.010000
 
 __END__
@@ -102,11 +106,11 @@ This is used to parse the data returned by the BTCex API.
 
 This module was written by Matthew Barksdale.
 
-This module is maintained by Arinity Development Group.
+This module is maintained by The Auto Project.
 
 =head1 LICENSE AND COPYRIGHT
 
-This module is Copyright 2010-2012 Arinity Development Group.
+This module is Copyright 2010-2013 The Auto Project.
 
 Released under the same licensing terms as Auto itself.
 

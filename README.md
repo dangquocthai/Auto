@@ -27,11 +27,13 @@ maintenance of Auto, and other projects.
 - [mattwb65](https://github.com/mattwb65) &lt;mattwb65@gmail.com&gt;
 - [noxgirl](https://github.com/noxgirl) &lt;xoeverlux@gmail.com&gt;
 
-Formerly maintained by Arinity:
+Inactive
 
 - [RussellB28](https://github.com/RussellB28) &lt;russell@rbradford.me&gt;
 - [liamsmithuk](https://github.com/liamsmithuk) &lt;me@liam.co&gt;
 - [alyx](https://github.com/alyx) &lt;contact@alyxw.me&gt;
+- [dwfreed](https://github.com/dwfreed)
+- [grimreaper](https://github.com/grimreaper)
 
 Requirements
 ------------

@@ -1,11 +1,10 @@
-It has come to my concern that users are encountering problems
-when running Auto on Debian. Specifically, the install script
-will error out. The reason for this is because Debian includes
-a version of File::Path that is old. The fix to this is to
-install the latest version via cpan. You can do this via:
-cpan -i File::Path
+It has been brought to our attention that Auto users are frequently
+encountering problems with using Auto on Debian. The reason for this is that
+Debian repositories distribute an old, incompatible version of File::Path.
 
-Effected:
+Please rectify this on your system by installing the latest from CPAN, with
+`cpan -i File::Path`. Thank you.
+
+Affected:
    Debian
-   Ubuntu
-   
+   Ubuntu  

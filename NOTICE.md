@@ -14,3 +14,8 @@ by the members of the Auto Project.
 
 Therefore, all users of Auto 3 should consider the central upstream to be the
 [Auto-legacy](https://github.com/Auto/Auto-legacy) repository.
+
+To reflect this in your clone, run:
+
+    git remote set-url origin https://github.com/Auto/Auto-legacy
+    git pull origin master

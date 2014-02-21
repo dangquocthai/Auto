@@ -53,6 +53,7 @@ API::Std::event_add('on_selfkick');
 API::Std::event_add('on_myinfo');
 API::Std::event_add('on_namesreply');
 API::Std::event_add('on_nick');
+API::Std::event_add('on_inick');
 API::Std::event_add('on_notice');
 API::Std::event_add('on_part');
 API::Std::event_add('on_upart');
@@ -527,6 +528,13 @@ sub nick {
     }
     else {
         # It isn't. Update chanusers and trigger on_nick.
+        my %cchans;
+        foreach my $ccu (keys %{ $State::IRC::chanusers{$src{svr}} }) {
+            if (defined $State::IRC::chanusers{$svr}{$ccu}{lc $src{nick}}) {
+                $cchans{$ccu} = $State::IRC::chanusers{$svr}{$ccu}{lc $src{nick}};
+            }
+        }
+
         foreach my $chk (keys %{ $State::IRC::chanusers{$svr} }) {
             if (defined $State::IRC::chanusers{$svr}{$chk}{lc $src{nick}}) {
                 my $temp = $State::IRC::chanusers{$svr}{$chk}{lc $src{nick}};
@@ -535,6 +543,7 @@ sub nick {
             }
         }
         API::Std::event_run("on_nick", (\%src, $nex));
+        API::Std::event_run("on_inick", (\%src, \%cchans, $nex));
     }
     
     return 1;    

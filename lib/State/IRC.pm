@@ -5,7 +5,7 @@ package State::IRC;
 use strict;
 use warnings;
 use API::Std qw(hook_add rchook_add);
-our (%chanusers, %botinfo, @who_wait);
+our (%chanusers, %userinfo, %botinfo, @who_wait);
 
 # Create on_namesreply hook.
 hook_add('on_namesreply', 'state.irc.names', sub {
@@ -20,7 +20,7 @@ hook_add('on_namesreply', 'state.irc.names', sub {
 
 # Create a WHO reply hook.
 hook_add('on_whoreply', 'state.irc.who', sub {
-    my ($svr, $nick, $chan, undef, undef, undef, $status, undef, undef) = @_;
+    my ($svr, $nick, $chan, $user, $host, undef, $status, undef, undef) = @_;
 
     # Are we expecting WHO data for this channel?
     if (lc $chan ~~ @who_wait) {
@@ -48,6 +48,10 @@ hook_add('on_whoreply', 'state.irc.who', sub {
         if ($chanusers{$svr}{lc $chan}{lc $nick} eq q{}) {
             $chanusers{$svr}{lc $chan}{lc $nick} = 1;
         }
+
+        # Store user info to memory.
+        $userinfo{$svr}{$nick}{'user'} = $user;
+        $userinfo{$svr}{$nick}{'host'} = $host;
     }
 
     return 1;

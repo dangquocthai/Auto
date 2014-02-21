@@ -361,6 +361,9 @@ sub cjoin {
         $src{svr} = $svr;
         API::Std::event_run("on_rcjoin", (\%src, $chan));
     }
+    # Unconditionally update userinfo.
+    $State::IRC::userinfo{$svr}{lc $src{nick}}{user} = $src{user};
+    $State::IRC::userinfo{$svr}{lc $src{nick}}{host} = $src{host};
     
     return 1;
 }
@@ -406,6 +409,17 @@ sub kick {
     else {
         # We weren't. Update chanusers and trigger on_kick.
         if (defined $State::IRC::chanusers{$svr}{lc $ex[2]}{lc $ex[3]}) { delete $State::IRC::chanusers{$svr}{lc $ex[2]}{lc $ex[3]} }
+        # Update userinfo if necessary.
+        if (defined $State::IRC::userinfo{$svr}{lc $ex[3]}) {
+            my $found = 0;
+            for my $chk (keys %{ $State::IRC::chanusers{$svr} }) {
+                if (defined $State::IRC::chanusers{$svr}{$chk}{lc $ex[3]}) {
+                    $found = 1;
+                }
+            }
+            unless ($found) { delete $State::IRC::userinfo{$svr}{lc $ex[3]} }
+        }
+
         API::Std::event_run("on_kick", (\%src, $ex[2], $ex[3], $msg));
     }
 
@@ -542,6 +556,10 @@ sub nick {
                 $State::IRC::chanusers{$svr}{$chk}{lc $nex} = $temp;
             }
         }
+        # Update userinfo.
+        $State::IRC::userinfo{$svr}{lc $nex}{user} = $src{user};
+        $State::IRC::userinfo{$svr}{lc $nex}{host} = $src{host};
+        delete $State::IRC::userinfo{$svr}{lc $src{nick}};
         API::Std::event_run("on_nick", (\%src, $nex));
         API::Std::event_run("on_inick", (\%src, \%cchans, $nex));
     }
@@ -586,6 +604,17 @@ sub part {
     else {
         # Delete them from chanusers.
         delete $State::IRC::chanusers{$svr}{lc $ex[2]}{lc $src{nick}} if defined $State::IRC::chanusers{$svr}{lc $ex[2]}{lc $src{nick}};
+
+        # Update userinfo if necessary.
+        if (defined $State::IRC::userinfo{$svr}{lc $src{nick}}) {
+            my $found = 0;
+            for my $chk (keys %{ $State::IRC::chanusers{$svr} }) {
+                if (defined $State::IRC::chanusers{$svr}{$chk}{lc $src{nick}}) {
+                    $found = 1;
+                }
+            }
+            unless ($found) { delete $State::IRC::userinfo{$svr}{lc $src{nick}} }
+        }
     
         # Set $msg to the part message.
         my $msg = 0;

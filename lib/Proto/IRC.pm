@@ -415,6 +415,7 @@ sub kick {
             for my $chk (keys %{ $State::IRC::chanusers{$svr} }) {
                 if (defined $State::IRC::chanusers{$svr}{$chk}{lc $ex[3]}) {
                     $found = 1;
+                    last;
                 }
             }
             unless ($found) { delete $State::IRC::userinfo{$svr}{lc $ex[3]} }
@@ -611,6 +612,7 @@ sub part {
             for my $chk (keys %{ $State::IRC::chanusers{$svr} }) {
                 if (defined $State::IRC::chanusers{$svr}{$chk}{lc $src{nick}}) {
                     $found = 1;
+                    last;
                 }
             }
             unless ($found) { delete $State::IRC::userinfo{$svr}{lc $src{nick}} }
